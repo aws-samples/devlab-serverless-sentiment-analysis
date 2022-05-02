@@ -1,0 +1,172 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "process unstructured data"
+
+
+Parameters: 
+  datalakebucket:
+    Description: Datalake Bucket Name
+    Type: String
+    Default: 'lab-comprehend-pk'
+
+
+
+Resources:
+  pipelinesentimentanalysis: 
+    Type: AWS::StepFunctions::StateMachine
+    DependsOn: 
+    - StatesExecutionRole
+    Properties: 
+      StateMachineName: pipeline-sentiment-analysis
+      DefinitionString:  
+        Fn::Sub: 
+         - |- 
+            {
+              "StartAt": "run-sentiment-analysis",
+              "States": {
+                "run-sentiment-analysis": {
+                  "Type": "Task",
+                  "Resource": "arn:aws:states:::glue:startJobRun.sync",
+                  "Parameters": {
+                    "JobName": "run-sentiment-analysis",
+                    "Arguments": {
+                        "--sourceloc" : "${datalakebucket}/raw/review-dataset.csv"
+                    }
+                  },
+                  "Next": "convert-csv-to-parquet"
+                },
+                "convert-csv-to-parquet": {
+                  "Type": "Task",
+                  "Resource": "arn:aws:states:::glue:startJobRun.sync",
+                  "Parameters": {
+                    "JobName": "convert-csv-to-parquet",
+                    "Arguments": {
+                      "--source_bucket": "${datalakebucket}"      
+                    }
+                  },
+                  "End": true
+                }
+              }
+            }
+         -  { 
+              datalakebucket: !Sub "${datalakebucket}"
+            }
+ 
+      RoleArn: !GetAtt [StatesExecutionRole, Arn ]
+      TracingConfiguration:
+        Enabled: true
+
+ 
+  runsentimentanalysis:
+    Type: AWS::Glue::Job
+    DependsOn: 
+    - GlueExecutionRole
+    - ComprehendS3AccessRole
+    Properties:
+      Command:
+        PythonVersion: 3
+        Name: pythonshell
+        ScriptLocation: !Sub s3://${datalakebucket}/glue-scripts/run-sentiment-analysis.py
+      DefaultArguments:
+        "--comprehendrole": !Sub arn:aws:iam::${AWS::AccountId}:role/service-role/ComprehendS3AccessRole
+      ExecutionProperty:      
+        MaxConcurrentRuns: 3
+      MaxRetries: 0
+      Name: run-sentiment-analysis
+      Role: !Sub arn:aws:iam::${AWS::AccountId}:role/GlueExecutionRole
+
+
+  sparkcsvtoparquet:
+    Type: AWS::Glue::Job
+    DependsOn: 
+    - GlueExecutionRole
+    Properties:
+      Command:
+        Name: glueetl
+        PythonVersion: 3
+        ScriptLocation: !Sub s3://${datalakebucket}/glue-scripts/convert-csv-to-parquet.py
+      MaxCapacity: 2
+      GlueVersion: 3.0
+      DefaultArguments:
+        "--source_bucket": !Sub ${datalakebucket}
+      ExecutionProperty:      
+        MaxConcurrentRuns: 10
+      MaxRetries: 0
+      Name: convert-csv-to-parquet
+      Role: !Sub arn:aws:iam::${AWS::AccountId}:role/GlueExecutionRole
+
+
+  
+  GlueExecutionRole: 
+    Type: AWS::IAM::Role
+    Properties: 
+      RoleName: GlueExecutionRole
+      AssumeRolePolicyDocument: 
+        Version: '2012-10-17'
+        Statement: 
+          - 
+            Effect: Allow
+            Principal: 
+              Service: 
+                - glue.amazonaws.com
+            Action: 
+              - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action: 
+                  - s3:*
+                  - "iam:PassRole"
+                  - comprehend:*
+                Effect: Allow
+                Resource: "*"
+            Version: '2012-10-17'
+          PolicyName: GlueExecutionAccess
+
+  ComprehendS3AccessRole: 
+    Type: AWS::IAM::Role
+    Properties: 
+      RoleName: ComprehendS3AccessRole
+      AssumeRolePolicyDocument: 
+        Version: '2012-10-17'
+        Statement: 
+          - 
+            Effect: Allow
+            Principal: 
+              Service: 
+                - comprehend.amazonaws.com
+            Action: 
+              - sts:AssumeRole
+      Path: "/service-role/"
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action: 
+                  - s3:*
+                Effect: Allow
+                Resource: "*"
+            Version: '2012-10-17'
+          PolicyName: ComprehendS3AccessPolicy
+
+  StatesExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: etl-StatesExecutionRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - states.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: etl-StatesExecutionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "glue:*"
+                Resource: "*"
