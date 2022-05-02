@@ -58,7 +58,7 @@ aws glue delete-table --database-name default --name movie_review_score
 rm -f  devlabs-serverless-sentiment-analysis --recursive 
 
 
-git clone https://github.com/pravmar/devlabs-serverless-sentiment-analysis.git
+git clone https://github.com/aws-samples/devlab-serverless-sentiment-analysis
 export BUCKET_NAME="devlab-dp-serverless-$(uuidgen)"
 aws s3 mb s3://$BUCKET_NAME
 aws s3 cp /home/ec2-user/environment/devlabs-serverless-sentiment-analysis/artefact s3://$BUCKET_NAME --recursive
