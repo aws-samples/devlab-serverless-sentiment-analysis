@@ -142,7 +142,7 @@ We can visualize Amazon Comprehend’s sentiment results by using Amazon QuickSi
 
 * In the AWS services console, search for QuickSight. Please ensure that you are logged in us-west-2 (Oregon) region. You can check this in the top right corner of the AWS console. 
 ![main_arch](./images/qs-1.png)
-* If this is the first time you have used QuickSight in this account, you are prompted to create an account. When prompted **Click Sign up for QuickSight**. If you are a retruning user or do not get prompted to set up account, then jump straight to step **On the top right corner, click New analysis** below.
+* If this is the first time you have used QuickSight in this account, you are prompted to create an account. When prompted **Click Sign up for QuickSight**. If you are a retruning user or do not get prompted to set up account, then we must grant Amazon QuickSight access to Amazon Athena and the associated S3 bucket _"datalakebucket"_ created in this lab. For more information on doing this, please see section "Make sure that you authorized Amazon QuickSight to use Athena" in   https://docs.aws.amazon.com/quicksight/latest/user/troubleshoot-connect-athena.html . Once done, jump straight to step **On the top right corner, click New analysis** below. 
 ![main_arch](./images/qs-2.png)
 * For account type, choose the default **Enterprise** Version. Click **Continue**.
 ![main_arch](./images/qs-3.png)
