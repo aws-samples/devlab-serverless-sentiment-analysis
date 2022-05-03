@@ -1,4 +1,4 @@
-# devlabs-serverless-sentiment-analysis
+# devlab-serverless-sentiment-analysis
 
 
 * Estimated time to complete this lab: 15 minutes
@@ -55,13 +55,13 @@ for dataset in $dataset_list; do aws quicksight delete-data-set --aws-account-id
 aws cloudformation delete-stack --stack-name summit-lab
 sleep 40
 aws glue delete-table --database-name default --name movie_review_score
-rm -f  devlabs-serverless-sentiment-analysis --recursive 
+rm -f  devlab-serverless-sentiment-analysis --recursive 
 
 
 git clone https://github.com/aws-samples/devlab-serverless-sentiment-analysis
 export BUCKET_NAME="devlab-dp-serverless-$(uuidgen)"
 aws s3 mb s3://$BUCKET_NAME
-aws s3 cp /home/ec2-user/environment/devlabs-serverless-sentiment-analysis/artefact s3://$BUCKET_NAME --recursive
+aws s3 cp /home/ec2-user/environment/devlab-serverless-sentiment-analysis/artefact s3://$BUCKET_NAME --recursive
 sleep 10
 aws cloudformation create-stack --stack-name summit-lab --template-url http://s3.amazonaws.com/$BUCKET_NAME/cfn-pipeline.yaml --parameters ParameterKey=datalakebucket,ParameterValue=$BUCKET_NAME --capabilities CAPABILITY_NAMED_IAM
 sleep 60
@@ -184,7 +184,7 @@ for dataset in $dataset_list; do aws quicksight delete-data-set --aws-account-id
 aws cloudformation delete-stack --stack-name summit-lab
 sleep 40
 aws glue delete-table --database-name default --name movie_review_score
-rm -f  devlabs-serverless-sentiment-analysis --recursive 
+rm -f  devlab-serverless-sentiment-analysis --recursive 
 aws s3 rb s3://$BUCKET_NAME --force
 echo "done"
 ```
