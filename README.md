@@ -38,7 +38,7 @@ As part of this lab, you will be performing below high-level tasks:
 
 
 
-First, login to AWS Console. Choose us-west-2 region. For this lab, we'll use the AWS Cloud 9 web-based IDE to run few CLI commands to reset environment
+First, login to AWS Console. Choose **us-west-2 region**. For this lab, we'll use the AWS Cloud 9 web-based IDE to run few CLI commands to reset environment
 
 # Step 1 : Reset environment. 
 * Navigate to the AWS Cloud 9 web console
@@ -96,12 +96,15 @@ The pipeline takes about 8-9 minutes to finish. In the meantime, lets create a t
 
 # Step 3 : Create DDL using Amazon Athena
 * Navigate to Amazon Athena in AWS console. Please ensure that you are logged in us-west-2 region.
-* If it’s the first time you are using Athena in your AWS Account, expand Get Started using Athena.
-  - Click Get Started. 
-  ![main_arch](./images/athena-get-started.png)  
-  - Then click set up a query result location in Amazon S3 at the top. 
-  ![main_arch](./images/athena-query-results.png)  
-  - In the pop-up window in the Query result location field, click the Select icon.  
+* If it’s the first time you are using Athena in your AWS Account, you have to set up S3 bucket for saving results.
+  - Click **Explore the query editor**. 
+  ![main_arch](./images/athena1.png)  
+  - Then click on **View settings**. 
+  ![main_arch](./images/athena2.png)  
+  - Next click on **Manage**. 
+  ![main_arch](./images/athena3.png)  
+  - In the pop-up window in the Location of query result field, click on **Browse S3**.  
+  ![main_arch](./images/athena4.png) 
   - Choose the bucket with that was created earlier during AWS CLI run, then click on Select button. 
   - Click on Save.
 
