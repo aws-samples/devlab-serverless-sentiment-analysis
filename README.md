@@ -110,7 +110,7 @@ The pipeline takes about 8-9 minutes to finish. In the meantime, lets create a t
 
 
 * Before we can perform our pipeline analysis, we need to create the below DDL. Replace the _"datalakebucket"_ part of the LOCATION clause with the  bucket name value captured earlier during AWS CLI run. 
-* Execute DDL in Amazon Athena query editor. 
+* Execute DDL in Amazon Athena query editor by returning to the **Editor** tab. 
 
 ```
       
