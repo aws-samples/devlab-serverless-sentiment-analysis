@@ -163,7 +163,7 @@ We can visualize Amazon Comprehend’s sentiment results by using Amazon QuickSi
 * Enter a name for your Athena data source (for example, movie-review-dataset) , validate and choose Create data source. 
       ![main_arch](./images/validate_dataset.png)
       
-* Choose database "default" and table "movie_review_score" created earlier in Amazon Athena. Click **Select**. 
+* Choose database "default" and table "movie_review_score" created earlier in Amazon Athena. Click **Select**. If you dont see the database or table, then please check if you are in the right region (us-west-2 for this workshop).
       ![main_arch](./images/select_table.png)
       
 * Choose **Directly query your data** and click **Visualize**. 
