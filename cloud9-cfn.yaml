@@ -16,7 +16,7 @@
 # */
 
 AWSTemplateFormatVersion: '2010-09-09'
-Description: AWS Cloud9 Environment with AWS CodeCommit Repository
+Description: AWS Cloud9 Environment for serverless data pipeline
 
 Parameters:
 
@@ -41,7 +41,7 @@ Parameters:
   Env:
     Description:    Please specify the target Env. Used for tagging and resource names. Mandatory LOWER CASE.
     Type:           String
-    Default:        "summit-lab"
+    Default:        "cloud9-lab-serverless"
 
 
   SubnetIdentifier:
