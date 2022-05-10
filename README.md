@@ -53,7 +53,7 @@ account_id=$(aws sts get-caller-identity --query 'Account' --output text)
 dataset_list=$(aws quicksight list-data-sets --aws-account-id $account_id --query 'DataSetSummaries[?Name ==`movie_review_score`].DataSetId' --output text)
 for dataset in $dataset_list; do aws quicksight delete-data-set --aws-account-id $account_id --data-set-id $dataset ; done
 aws cloudformation delete-stack --stack-name summit-lab
-sleep 40
+sleep 20
 aws glue delete-table --database-name default --name movie_review_score
 rm -f  devlab-serverless-sentiment-analysis --recursive 
 
@@ -64,7 +64,7 @@ aws s3 mb s3://$BUCKET_NAME
 aws s3 cp /home/ec2-user/environment/devlab-serverless-sentiment-analysis/artefact s3://$BUCKET_NAME --recursive
 sleep 10
 aws cloudformation create-stack --stack-name summit-lab --template-url http://s3.amazonaws.com/$BUCKET_NAME/cfn-pipeline.yaml --parameters ParameterKey=datalakebucket,ParameterValue=$BUCKET_NAME --capabilities CAPABILITY_NAMED_IAM
-sleep 60
+sleep 40
 echo 'datalakebucket'=$BUCKET_NAME
 
 
@@ -185,7 +185,7 @@ account_id=$(aws sts get-caller-identity --query 'Account' --output text)
 dataset_list=$(aws quicksight list-data-sets --aws-account-id $account_id --query 'DataSetSummaries[?Name ==`movie_review_score`].DataSetId' --output text)
 for dataset in $dataset_list; do aws quicksight delete-data-set --aws-account-id $account_id --data-set-id $dataset ; done
 aws cloudformation delete-stack --stack-name summit-lab
-sleep 40
+sleep 20
 aws glue delete-table --database-name default --name movie_review_score
 rm -f  devlab-serverless-sentiment-analysis --recursive 
 aws s3 rb s3://$BUCKET_NAME --force
