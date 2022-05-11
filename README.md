@@ -44,7 +44,8 @@ First, login to AWS Console. Choose **us-west-2 region**. For this lab, we'll us
 
 * Navigate to the AWS Cloud 9 web console. To access Cloud9 search for Cloud9 in the AWS Console and Click on Cloud9.
 ![main_arch](./images/Cloud9.png)  
-* Then select the Cloud9 environment named `Serverless Sentiment Analysis (Level 300)', and click the 'Open IDE' button for you to enter the IDE
+* Then select the Cloud9 environment named `Serverless Sentiment Analysis (Level 300)', and click the 'Open IDE' button for you to enter the IDE. 
+
 ![main_arch](./images/ide.png)  
 * After the interface loads, find the tab with the Terminal and click to maximize it
 
