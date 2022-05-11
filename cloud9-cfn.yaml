@@ -41,7 +41,7 @@ Parameters:
   Env:
     Description:    Please specify the target Env. Used for tagging and resource names. Mandatory LOWER CASE.
     Type:           String
-    Default:        "cloud9-lab-serverless"
+    Default:        "devlab-serverless-sentiment-analysis"
 
 
   SubnetIdentifier:
