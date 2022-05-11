@@ -41,9 +41,11 @@ As part of this lab, you will be performing below high-level tasks:
 First, login to AWS Console. Choose **us-west-2 region**. For this lab, we'll use the AWS Cloud 9 web-based IDE to run few CLI commands to reset environment
 
 # Step 1 : Reset environment. 
-* Navigate to the AWS Cloud 9 web console
-* On the left-hand sidebar, click 'Shared with you'
-* Find the entry starting with 'Serverless Sentiment Analysis (Level 300)' and click the 'Open IDE' button
+
+* Navigate to the AWS Cloud 9 web console. To access Cloud9 search for Cloud9 in the AWS Console and Click on Cloud9.
+![main_arch](./images/cloud9.png)  
+* Then select the Cloud9 environment named `Serverless Sentiment Analysis (Level 300)', and click the 'Open IDE' button for you to enter the IDE
+![main_arch](./images/ide.png)  
 * After the interface loads, find the tab with the Terminal and click to maximize it
 
 * Copy the commands below
