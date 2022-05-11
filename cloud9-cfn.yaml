@@ -26,5 +26,5 @@ Resources:
       AutomaticStopTimeMinutes: 20160
       Description: Serverless sentiment analysis DevLab
       InstanceType: t2.micro
-      Name: "Serverless Sentiment Analysis (Level 300)"
+      Name: Serverless Sentiment Analysis (Level 300)
 
