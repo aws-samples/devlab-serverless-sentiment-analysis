@@ -18,57 +18,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: AWS Cloud9 Environment for serverless data pipeline
 
-Parameters:
-
-  EC2InstanceType:
-    Description: EC2 instance type on which IDE runs
-    Type:        String
-    Default:     t3.small
-
-
-  AutoHibernateTimeout:
-    Description:  How many minutes idle before shutting down the IDE. Options, 30min, 1hr, 4hr, 1day, 1week, Never (0)
-    Type:         Number
-    Default:      30
-    AllowedValues:
-      - 30
-      - 60
-      - 240
-      - 1440
-      - 10080
-      - 0
-
-  Env:
-    Description:    Please specify the target Env. Used for tagging and resource names. Mandatory LOWER CASE.
-    Type:           String
-    Default:        "devlab-serverless-sentiment-analysis"
-
-
-  SubnetIdentifier:
-    Description: SubnetId
-    Type: AWS::EC2::Subnet::Id
-
-
 
 Resources:
+  Cloud9InstanceAL2:
+    Type: AWS::Cloud9::EnvironmentEC2
+    Properties: 
+      AutomaticStopTimeMinutes: 20160
+      Description: Serverless sentiment analysis DevLab
+      InstanceType: t2.micro
+      Name: devlab-serverless-sentiment-analysis
 
-  C9IDE:
-    Type: 'AWS::Cloud9::EnvironmentEC2'
-    Properties:
-      Name: !Sub '${Env}-Cloud9-IDE'
-      Description: !Sub '${Env} Cloud9 IDE'
-      AutomaticStopTimeMinutes: !Ref 'AutoHibernateTimeout'
-      SubnetId:
-        Ref: SubnetIdentifier
-      InstanceType: !Ref 'EC2InstanceType'
-
-
-Outputs:
-
-  Cloud9URL:
-    Description: Cloud9 Environment
-    Value:
-      Fn::Join:
-      - ''
-      - - !Sub https://${AWS::Region}.console.aws.amazon.com/cloud9/ide/
-        - !Ref 'C9IDE'
