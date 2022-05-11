@@ -43,7 +43,7 @@ First, login to AWS Console. Choose **us-west-2 region**. For this lab, we'll us
 # Step 1 : Reset environment. 
 * Navigate to the AWS Cloud 9 web console
 * On the left-hand sidebar, click 'Shared with you'
-* Find the entry starting with 'devlab-serverless-sentiment-analysis' and click the 'Open IDE' button
+* Find the entry starting with 'Serverless Sentiment Analysis (Level 300)' and click the 'Open IDE' button
 * After the interface loads, find the tab with the Terminal and click to maximize it
 
 * Copy the commands below
