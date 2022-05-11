@@ -70,7 +70,7 @@ echo 'datalakebucket'=$BUCKET_NAME
 
 ```
 
-* In your Cloud9 terminal paste the commands and run it. This step takes about 2 minutes to complete. Wait until you see this statement completing `echo 'datalakebucket'=$BUCKET_NAME`
+* In your Cloud9 terminal paste the commands and run it. This step takes about 2 minutes to complete. Wait until you see this statement completing `echo 'datalakebucket'=$BUCKET_NAME` . Also, please ignore this exception as part of reset environment : **Table movie_review_score not found**
 
 * Please make note of Amazon S3 bucket _"datalakebucket"_ created in this step. This will be used in Athena section while creating DDL and in Quicksight section when granting access permission.
 
