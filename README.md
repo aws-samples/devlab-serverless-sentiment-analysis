@@ -88,7 +88,8 @@ Running above commands does following:
 # Step 2 : Run data pipeline
 * Navigate to AWS Step Function in AWS console. Please ensure that you are logged in us-west-2 region.  
 * Click on "pipeline-sentiment-analysis" to navigate to below page.
-* Click on Start Execution at the top to trigger the pipeline. When prompted on next page, click on "Start Execution" again.
+* Click on Start Execution at the top to trigger the pipeline. 
+* When prompted on next page, click on "Start Execution" again.
 
 ![main_arch](./images/step_function.png)  
 
@@ -110,6 +111,7 @@ The pipeline takes about 8-9 minutes to finish. In the meantime, lets create a t
   ![main_arch](./images/athena4.png) 
   - Choose the bucket with that was created earlier during AWS CLI run, then click on Select button. 
   - Click on Save.
+  - Return to the **Editor** tab. 
 
 
 * Before we can perform our pipeline analysis, we need to create the below DDL. Replace the _"datalakebucket"_ part of the LOCATION clause with the  bucket name value captured earlier during AWS CLI run. 
@@ -136,7 +138,7 @@ LOCATION
   's3://<datalakebucket>/optimised/'
  
 ```
-* Execute DDL in Amazon Athena query editor by returning to the **Editor** tab and hit Run. 
+* Execute DDL in Amazon Athena query editor by hitting Run. 
   ![main_arch](./images/athena5.png) 
 
  
