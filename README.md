@@ -52,7 +52,8 @@ First, login to AWS Console. Choose **us-west-2 region**. For this lab, we'll us
 * Copy the commands below
 
 ```
-export=AWS_REGION=‘us-west-2’
+sudo yum install jq
+export AWS_DEFAULT_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
 account_id=$(aws sts get-caller-identity --query 'Account' --output text)
 dataset_list=$(aws quicksight list-data-sets --aws-account-id $account_id --query 'DataSetSummaries[?Name ==`movie_review_score`].DataSetId' --output text)
 for dataset in $dataset_list; do aws quicksight delete-data-set --aws-account-id $account_id --data-set-id $dataset ; done
